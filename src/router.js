@@ -4,6 +4,7 @@ import Home from "./views/Home";
 import About from "./views/About";
 import Login from "./views/Login";
 import Join from "./views/Join";
+import Parent from "./views/Parent";
 
 Vue.use(VueRouter);
 
@@ -25,6 +26,10 @@ export default new VueRouter({
         , {
             path: "/join"
             , component: Join
+        }
+        , {
+            path: "/parent"
+            , component: Parent
         }
     ]
 });

@@ -1,6 +1,6 @@
 <template>
 <div>
-  <b-navbar toggleable="lg" type="dark" variant="info" v-if="accessToken">
+  <b-navbar toggleable="lg" type="dark" variant="info" v-if="true">
     <!-- <b-navbar-brand href="#">T</b-navbar-brand> -->
     <h1><router-link to="/">T</router-link></h1>
 
@@ -8,7 +8,10 @@
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <b-nav-item href="/about">Link</b-nav-item>
+        <b-nav-item href="/about">About</b-nav-item>
+        <b-nav-item href="/login">Sign In</b-nav-item>
+        <b-nav-item href="/join">Sign Up</b-nav-item>
+        <b-nav-item href="/parent">Parent</b-nav-item>
         <!-- <b-nav-item href="#" disabled>Disabled</b-nav-item> -->
       </b-navbar-nav>
 
