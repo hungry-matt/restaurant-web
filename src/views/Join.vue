@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Sign Up</h2>
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+    <b-form @reset="onReset" v-if="show">
       <b-form-group
         id="input-group-1"
         label="Email address:"
@@ -38,7 +38,7 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-button type="submit" variant="primary">Submit</b-button>
+      <b-button type="button" @click="onSubmit" variant="primary">Submit</b-button>
       <b-button type="reset" variant="danger">Reset</b-button>
     </b-form>
 
@@ -49,6 +49,8 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex';
+
   export default {
     name: "Join"
     , data() {
@@ -62,16 +64,24 @@
       }
     }
     , methods: {
-      onSubmit(event) {
-        event.preventDefault()
-        alert(JSON.stringify(this.form))
-      },
-      onReset(event) {
+      ...mapActions(['joinUser'])
+      , async onSubmit() {        
+        const {email, name, password} =  this.form;
+        this.joinUser({
+          email
+          , name
+          , password
+          , success : () => {
+              this.$router.push('/');
+          }
+        })
+      }
+      , onReset(event) {
         event.preventDefault()
         // Reset our form values
-        this.form.email = ''
-        this.form.name = ''
-        this.form.password = ''
+        this.form.email = '1234@1234'
+        this.form.name = 'test'
+        this.form.password = 'test'
         // Trick to reset/clear native browser form validation state
         this.show = false
         this.$nextTick(() => {

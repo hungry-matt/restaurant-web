@@ -1,9 +1,14 @@
 import axios from 'axios';
 
 const API_BASE_URL = process.env.VUE_APP_API_BASE_URL;
+const LOGIN_API_BASE_URL = process.env.VUE_APP_LOGIN_API_BASE_URL;
 
 let http = axios.create({
     baseURL: API_BASE_URL || 'http://localhost:8080'
+    , headers: {
+        'Content-type' : 'application/json'
+        , 'Accept' : '*/*'
+    }
 });
 
 export const useAccessToken = (accessToken) => {
@@ -17,6 +22,17 @@ export const useAccessToken = (accessToken) => {
 
 export const get = async(path, params) => {
     const { data } = await http.get(path, { params });
+    return data;
+}
+
+export const post = async(path, params) => {
+    const { data } = await http.post(path, params);
+    return data;
+}
+
+export const loginPost = async(path, payload) => {
+    const url = `${LOGIN_API_BASE_URL || 'http:localhost:8080'}${path}`;
+    const { data } = await axios.post(url, payload);
     return data;
 }
 

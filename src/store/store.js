@@ -1,21 +1,19 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { get } from "./http";
+import { post, loginPost, useAccessToken } from "./http";
 
 Vue.use(Vuex);
 
-export const store = new Vuex.Store({
+export default new Vuex.Store({
     //컴포넌트 간에 공유할 data 속성
     state: {
         counter: 0
+        , accessToken: ''
         , users: []
     }
     , getters: {
         getCounter: function(state) {
             return state.counter;
-        }
-        , getUsers: function(state) {
-            return state.users;
         }
     }
     , mutations: {
@@ -29,8 +27,8 @@ export const store = new Vuex.Store({
         , increment: function(state, payload) {
             state.counter = payload;
         }
-        , setUsers(state, payload) {
-            state.users = payload;
+        , setAccessToken(state, payload) {
+            state.accessToken = payload;
         }
     }
     , actions: {
@@ -44,9 +42,29 @@ export const store = new Vuex.Store({
                 context.commit('increment', payload.by);
             }, payload.duration);
         } 
-        , async loadUsers({ commit }) {
-            const users = await get("/users");
-            commit('setUsers', users);
+        , async joinUser({state}, {email, name, password, success}) {
+            console.log(state);
+
+            await post('/users', {email, name, password})
+            
+            success();
+        }
+        , setAccessToken({ commit }, { accessToken }) {
+            commit('setAccessToken', accessToken);
+
+            useAccessToken(accessToken);
+
+            localStorage.setItem('accessToken', accessToken);
+        }
+        , async createSession({ commit }, { email, password, success }) {
+            const { accessToken } = await loginPost("/session", {email, password});
+            commit('setAccessToken', accessToken);
+
+            useAccessToken(accessToken);
+            
+            localStorage.setItem('accessToken', accessToken);
+
+            success();
         }
     }
 });
