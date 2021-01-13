@@ -4,21 +4,29 @@ const API_BASE_URL = process.env.VUE_APP_API_BASE_URL;
 const LOGIN_API_BASE_URL = process.env.VUE_APP_LOGIN_API_BASE_URL;
 
 let http = axios.create({
-    baseURL: API_BASE_URL || 'http://localhost:8080'
+    baseURL: API_BASE_URL || 'http://localhost:8003'
     , headers: {
         'Content-type' : 'application/json'
-        , 'Accept' : '*/*'
     }
 });
 
+// const login = axios.create({
+//     baseURL : 'http://localhost:8001'
+//     , headers: {
+//         'Access-Control-Allow-Origin': '*',
+//         'Content-type' : 'application/json'
+//     }
+// })
+
 export const useAccessToken = (accessToken) => {
     http = axios.create({
-      baseURL: process.env.VUE_APP_API_BASE_URL || 'http://localhost:8080',
+      baseURL: process.env.VUE_APP_API_BASE_URL || 'http://localhost:8003',
       headers: {
-        authorization: `Bearer ${accessToken}`,
+        'Content-type' : 'application/json'
+        , authorization: `Bearer ${accessToken}`
       },
     });
-};  
+};
 
 export const get = async(path, params) => {
     const { data } = await http.get(path, { params });
@@ -31,7 +39,7 @@ export const post = async(path, params) => {
 }
 
 export const loginPost = async(path, payload) => {
-    const url = `${LOGIN_API_BASE_URL || 'http:localhost:8080'}${path}`;
+    const url = `${LOGIN_API_BASE_URL || 'http://localhost:8001'}${path}`;
     const { data } = await axios.post(url, payload);
     return data;
 }
