@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store/store';
+import store from './store'
 
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
@@ -16,8 +16,15 @@ Vue.use(IconsPlugin)
 
 Vue.config.productionTip = false
 
+//Vue component는 Dispatch('[action메소드명]')를 통해
+//Vuex store의 Action 그룹에 속한 메서드를 실행함
+store.dispatch({
+  type: 'setAccessToken'
+  , accessToken: localStorage.getItem('accessToken') || ''
+});
+
 new Vue({
   router,
-  store: store,
+  store,
   render: h => h(App),
 }).$mount('#app')

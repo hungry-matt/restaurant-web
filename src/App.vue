@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
 
 import Header from './components/layout/Header.vue'
 
@@ -17,14 +17,14 @@ export default {
   components: {
     Header
   }
-  , computed: {
-    ...mapState(['accessToken'])
-  }
-  , watch: {
-    accessToken() {
-      this.$router.go('/');
-    }
-  }
+  // , computed: {
+  //   ...mapState(['accessToken'])
+  // }
+  // , watch: {
+  //   accessToken() {
+  //     this.$router.go('/');
+  //   }
+  // }
 }
 </script>
 

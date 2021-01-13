@@ -1,6 +1,6 @@
 <template>
 <div>
-  <b-navbar toggleable="lg" type="dark" variant="light" v-if="accessToken">
+  <b-navbar toggleable="lg" type="dark" variant="light" v-if="true">
     <h1><router-link to="/">T</router-link></h1>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -10,14 +10,20 @@
         <li class="nav-item">
           <router-link class="nav-link" to="/about">About</router-link>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <router-link class="nav-link" to="/login">Sign In</router-link>
         </li>
         <li class="nav-item">
           <router-link class="nav-link" to="/join">Sign Up</router-link>
-        </li>
+        </li> -->
         <li class="nav-item">
           <router-link class="nav-link" to="/parent">Parent</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/overlay">Overlay</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/list">List</router-link>
         </li>
         <!-- <b-nav-item href="#" disabled>Disabled</b-nav-item> -->
       </b-navbar-nav>

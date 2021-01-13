@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Welcome to home!</h1>
+        <!-- <h1>Welcome to home!</h1>
         <h2>{{title}}</h2>
         <input type="text" v-model="input1" />
         <button type="button" @click="getDate">Get</button>
@@ -16,11 +16,10 @@
                 <td>{{data.v}}</td>
                 <td>{{data.t}}</td>
             </tr>
-        </table>
+        </table> -->
     </div>
 </template>
 <script>
-
 export default {
     data() {
         return {
