@@ -35,21 +35,17 @@
           <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
         </b-nav-form> -->
 
-        <b-nav-item-dropdown text="Lang" right>
+        <!-- <b-nav-item-dropdown text="Lang" right>
           <b-dropdown-item href="#">KR</b-dropdown-item>
           <b-dropdown-item href="#">EN</b-dropdown-item>
           <b-dropdown-item href="#">ES</b-dropdown-item>
           <b-dropdown-item href="#">RU</b-dropdown-item>
           <b-dropdown-item href="#">FA</b-dropdown-item>
-        </b-nav-item-dropdown>
+        </b-nav-item-dropdown> -->
 
-        <b-nav-item-dropdown right>
-          <!-- Using 'button-content' slot -->
-          <template #button-content>
-            <em>User</em>
-          </template>
-          <b-dropdown-item href="#">Profile</b-dropdown-item>
-          <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+        <b-nav-item-dropdown v-if="accessToken" :text=userName right>
+          <!-- <b-dropdown-item href="#">Profile</b-dropdown-item> -->
+          <b-dropdown-item href="#" @click="clearAccessToken">Sign Out</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
@@ -57,11 +53,23 @@
 </div>
 </template>
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 export default {
     name: "Header"
     , computed: {
-      ...mapState(['accessToken'])
+      ...mapState(['accessToken', 'userName'])
+    }
+    , methods: {
+      ...mapActions(['clearAccessToken'])
+    }
+    , mounted() {
+      let tag = document.getElementsByClassName('dropdown-toggle');
+
+      if (tag != null && tag.length > 0) {
+        tag.forEach(function(el) {
+          el.style.color = 'black';
+        });
+      }
     }
 }
 </script>
@@ -72,12 +80,13 @@ a {
   color: rgb(3, 3, 3);
 }
 
+a:hover {
+  color: #555;
+}
+
 .nav-link {
   text-decoration: none;
   color: rgb(3, 3, 3) !important;
 }
 
-a:hover {
-  color: #555;
-}
 </style>
