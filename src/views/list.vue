@@ -1,10 +1,14 @@
 <template>
   <div>
+      <h1>Regions</h1>
       <b-card>
-        <ul v-if="list.length">
-            <li v-for="(data, idx) in list" :key="idx">
+        <ul v-if="regions.length">
+            <li v-for="(data, idx) in regions" :key="idx">
                 <router-link
-                    :to="{path: '/login', params: {id: data.id}}"
+                    :to="{
+                        path: '/category'
+                        , query: { regionId: data.id }
+                        }"
                 >
                 {{ data.name }}
                 </router-link>
@@ -16,21 +20,25 @@
 
 <script>
 import { mapActions } from 'vuex';
+// import { mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
     name: "List"
     , data() {
         return {
-            list: [
-                
-            ]
+            
         }
     }
+    , computed: {
+        ...mapState(['regions'])
+    }
     , methods: {
-        ...mapActions(['getRegions'])
+        ...mapActions(['loadRegions'])
+        
     }
     , mounted() {
-        this.getRegions();
+        this.loadRegions();
     }
 }
 </script>

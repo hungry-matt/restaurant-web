@@ -6,14 +6,14 @@ import Login from "./views/Login.vue";
 import Join from "./views/Join.vue";
 import Parent from "./views/Parent.vue";
 import Overlay from "./views/Overlay.vue";
-import list from "./views/list.vue"
+import List from "./views/List.vue"
+import Category from "./views/Category.vue"
 
 import store from "./store";
 
 Vue.use(VueRouter);
 
 const authenticated = (_to, _from, next) => {
-    console.log(store.state.accessToken);
     if (!store.state.accessToken) {
         next('/login');
         return;
@@ -52,7 +52,11 @@ export default new VueRouter({
         }
         , {
             path: "/list"
-            , component: list
+            , component: List
+        }
+        , {
+            path: "/category"
+            , component: Category
         }
     ]
 });
