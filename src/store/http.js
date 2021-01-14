@@ -10,18 +10,19 @@ let http = axios.create({
     }
 });
 
-// const login = axios.create({
-//     baseURL : 'http://localhost:8001'
-//     , headers: {
-//         'Access-Control-Allow-Origin': '*',
-//         'Content-type' : 'application/json'
-//     }
-// })
+export const newAxios = () => {
+    http = axios.create({
+        baseURL: process.env.VUE_APP_API_BASE_URL || 'http://localhost:8003'
+        , headers: {
+            'Content-type' : 'application/json'
+        }
+    })
+}
 
 export const useAccessToken = (accessToken) => {
     http = axios.create({
-      baseURL: process.env.VUE_APP_API_BASE_URL || 'http://localhost:8003',
-      headers: {
+      baseURL: process.env.VUE_APP_API_BASE_URL || 'http://localhost:8003'
+      , headers: {
         'Content-type' : 'application/json'
         , authorization: `Bearer ${accessToken}`
       },

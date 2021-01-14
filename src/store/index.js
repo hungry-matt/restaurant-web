@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { post, loginPost, useAccessToken, get } from "./http";
+import { post, loginPost, useAccessToken, get, newAxios } from "./http";
 
 Vue.use(Vuex);
 
@@ -9,7 +9,8 @@ const state = {
     , accessToken: ''
     , users: []
     , categories: []
-    , regios: []
+    , regions: []
+    , userName: ''
 }
 
 export default new Vuex.Store({
@@ -18,6 +19,9 @@ export default new Vuex.Store({
     , getters : {
         getCounter: function(state) {
             return state.counter;
+        }
+        , getRegions: function(state) {
+            return state.regions;
         }
     }
     , mutations: {
@@ -36,6 +40,12 @@ export default new Vuex.Store({
         }
         , setRegions(state, payload) {
             state.regions = payload;
+        }
+        , setCategories(state, payload) {
+            state.categories = payload
+        }
+        , setUserName(state, payload) {
+            state.userName = payload;
         }
     }
     , actions: {
@@ -63,24 +73,34 @@ export default new Vuex.Store({
 
             localStorage.setItem('accessToken', accessToken);
         }
-        , async createSession({ commit }, { email, password, success }) {
+        , clearAccessToken({ commit }) {
+            commit('setAccessToken', '')
+
+            useAccessToken('')
+
+            localStorage.removeItem('accessToken')
+
+            newAxios();
+        }
+        , async createSession({ commit }, { email, password }) {
             const { accessToken } = await loginPost("/session", {email, password});
             commit('setAccessToken', accessToken);
             
             useAccessToken(accessToken);
             
-            localStorage.setItem('accessToken', accessToken);
-
-            success();
+            localStorage.setItem('accessToken', accessToken);            
         }
-        // , async getCategories({ commit }, { region, category}) {
-        //     await get('/categories', {}
-        //     commit('setCategories', )
-        // }
-        , async getRegions({ commit }) {
-            const { regions } = get('/regions');
-
+        , async loadRegions({ commit }) {
+            const regions = await get('/regions');
             commit('setRegions', regions);
+        }
+        , async loadCategories({ commit }) {
+            const categories = await get('/categories');
+            commit('setCategories', categories);
+        }
+        , async loadUserName({ commit }) {
+            const me = await get('/me')
+            commit('setUserName', me);
         }
     }
 });
