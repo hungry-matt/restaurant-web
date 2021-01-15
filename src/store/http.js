@@ -7,12 +7,13 @@ let http = axios.create({
     baseURL: API_BASE_URL || 'http://localhost:8003'
     , headers: {
         'Content-type' : 'application/json'
+        , 'Access-Control-Allow-Origin' : '*/*'
     }
 });
 
 export const newAxios = () => {
     http = axios.create({
-        baseURL: process.env.VUE_APP_API_BASE_URL || 'http://localhost:8003'
+        baseURL: API_BASE_URL || 'http://localhost:8003'
         , headers: {
             'Content-type' : 'application/json'
         }

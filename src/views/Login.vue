@@ -72,6 +72,9 @@ import { mapActions } from "vuex";
         this.createSession({
           email
           , password
+          , success: () => {
+            this.$router.push('/');
+          }
         })
       }
       , join() {

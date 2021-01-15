@@ -44,7 +44,7 @@
         </b-nav-item-dropdown> -->
 
         <b-nav-item-dropdown v-if="accessToken" :text=userName right>
-          <!-- <b-dropdown-item href="#">Profile</b-dropdown-item> -->
+          <b-dropdown-item href="#">Profile</b-dropdown-item>
           <b-dropdown-item href="#" @click="clearAccessToken">Sign Out</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
@@ -62,13 +62,15 @@ export default {
     , methods: {
       ...mapActions(['clearAccessToken'])
     }
-    , mounted() {
-      let tag = document.getElementsByClassName('dropdown-toggle');
+    , watch: {
+      userName() {
+        let tag = document.getElementsByClassName('dropdown-toggle');
 
-      if (tag != null && tag.length > 0) {
-        tag.forEach(function(el) {
-          el.style.color = 'black';
-        });
+        if (tag != null && tag.length > 0) {
+          tag.forEach(function(el) {
+            el.style.color = 'black';
+          });
+        }
       }
     }
 }

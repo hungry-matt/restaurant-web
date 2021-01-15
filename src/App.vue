@@ -22,17 +22,18 @@ export default {
   }
   , methods: {
     ...mapActions(['loadUserName'])
+    , getName() {
+       const token = this.accessToken;
+
+      if (token !== "") {
+        this.loadUserName();
+      }
+    }
   }
   , watch: {
     accessToken() {
-      this.$router.push('/')
-    }
-  }
-  , async mounted() {
-    const userName = userName;
-
-    if (!userName) {
-      this.loadUserName();
+      this.getName()
+      // this.$router.push('/')
     }
   }
 }

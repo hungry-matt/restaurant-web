@@ -1,5 +1,6 @@
 <template>
     <div>
+        home
         <!-- <h1>Welcome to home!</h1>
         <h2>{{title}}</h2>
         <input type="text" v-model="input1" />
