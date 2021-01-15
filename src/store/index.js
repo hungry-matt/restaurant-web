@@ -75,6 +75,7 @@ export default new Vuex.Store({
         }
         , clearAccessToken({ commit }) {
             commit('setAccessToken', '')
+            commit('setUserName', '')
 
             useAccessToken('')
 
@@ -82,13 +83,15 @@ export default new Vuex.Store({
 
             newAxios();
         }
-        , async createSession({ commit }, { email, password }) {
+        , async createSession({ commit }, { email, password, success }) {
             const { accessToken } = await loginPost("/session", {email, password});
             commit('setAccessToken', accessToken);
             
             useAccessToken(accessToken);
             
-            localStorage.setItem('accessToken', accessToken);            
+            localStorage.setItem('accessToken', accessToken);
+            
+            success();
         }
         , async loadRegions({ commit }) {
             const regions = await get('/regions');
