@@ -9,6 +9,7 @@ const state = {
     , accessToken: ''
     , users: []
     , categories: []
+    , restaurants: []
     , regions: []
     , userName: ''
 }
@@ -46,6 +47,9 @@ export default new Vuex.Store({
         }
         , setUserName(state, payload) {
             state.userName = payload;
+        }
+        , setRestaurants(state, payload) {
+            state.restaurants = payload;
         }
     }
     , actions: {
@@ -104,6 +108,10 @@ export default new Vuex.Store({
         , async loadUserName({ commit }) {
             const me = await get('/me')
             commit('setUserName', me);
+        }
+        , async loadRestaurants({commit}, {region, category}) {
+            const restaurants = await get('/restaurants', {region, category})
+            commit('setRestaurants', restaurants)
         }
     }
 });

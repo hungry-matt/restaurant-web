@@ -6,10 +6,10 @@
             <li v-for="(data, idx) in categories" :key="idx">
                 <router-link
                     :to="{ 
-                        path: '/list'
+                        path: '/restaurant'
                         , query: { 
-                            regionId: regionId
-                            , categoryId:  data.id
+                            region: region
+                            , category:  data.id
                             }
                         }"
                 >
@@ -28,7 +28,7 @@ export default {
     name: "Category"
     , data() {
         return {
-            regionId: ''
+            region: ''
         }
     }
     , computed: {
@@ -38,8 +38,8 @@ export default {
         ...mapActions(['loadCategories'])
     }
     , mounted() {
-        const { regionId } = this.$route.query;
-        this.regionId = regionId;
+        const { region } = this.$route.query;
+        this.region = region;
         this.loadCategories();
     }
 }

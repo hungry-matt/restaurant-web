@@ -7,7 +7,7 @@
                 <router-link
                     :to="{
                         path: '/category'
-                        , query: { regionId: data.id }
+                        , query: { region: data.name }
                         }"
                 >
                 {{ data.name }}
