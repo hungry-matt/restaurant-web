@@ -8,6 +8,7 @@ import Parent from "./views/Parent.vue";
 import Overlay from "./views/Overlay.vue";
 import List from "./views/List.vue"
 import Category from "./views/Category.vue"
+import Restaurants from "./views/Restaurants.vue"
 import Restaurant from "./views/Restaurant.vue"
 
 import store from "./store";
@@ -62,6 +63,10 @@ export default new VueRouter({
         , {
             path: "/restaurant"
             , component: Restaurant
+        }
+        , {
+            path: "/restaurants"
+            , component: Restaurants
         }
     ]
 });

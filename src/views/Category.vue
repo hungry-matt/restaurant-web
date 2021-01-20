@@ -6,7 +6,7 @@
             <li v-for="(data, idx) in categories" :key="idx">
                 <router-link
                     :to="{ 
-                        path: '/restaurant'
+                        path: '/restaurants'
                         , query: { 
                             region: region
                             , category:  data.id
