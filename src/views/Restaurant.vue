@@ -25,7 +25,7 @@
         <!-- <b-button :disabled="show" variant="primary" @click="show = true">
           Show overlay
         </b-button> -->
-        <b-button variant="primary" @click="reservations">submit</b-button>
+        <b-button variant="primary" @click="submit">submit</b-button>
       </b-card>
     </b-overlay>
   </div>
@@ -41,6 +41,8 @@ export default {
             date: ''
             , time: ''
             , partySize: ''
+            , restaurantId: ''
+            , show: false
         }
     }
     , computed: {
@@ -48,9 +50,22 @@ export default {
     }
     , methods: {
         ...mapActions(['loadRestaurant', 'reservations'])
+        , async submit() {
+            const {restaurantId, date, time, partySize} = this.$data;
+            this.reservations({
+                restaurantId, 
+                date, 
+                time, 
+                partySize, 
+                success : () => {
+                    this.$router.push('/list')
+                }
+            });
+        }
     }
     , created() {
-        const { restaurantId } = this.$route.query
+        const { restaurantId } = this.$route.params
+        this.restaurantId = restaurantId;
         this.loadRestaurant({restaurantId});
     }
 }

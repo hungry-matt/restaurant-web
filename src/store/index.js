@@ -55,6 +55,9 @@ export default new Vuex.Store({
         , setRestaurant(state, payload) {
             state.restaurant = payload
         }
+        , SUCCESS() {
+            
+        }
     }
     , actions: {
         //상태가 변화는 걸 추적하기 위해 actions는 mutations의 메서드를 호출(commit) 하는 구조
@@ -121,7 +124,7 @@ export default new Vuex.Store({
             const restaurant = await get('/restaurants/' + restaurantId)
             commit('setRestaurant', restaurant);
         }
-        , async reservations({restaurantId, date, time, partySize}) {
+        , async reservations({commit}, {restaurantId, date, time, partySize, success}) {
             await post('/restaurants/'+ restaurantId +'/reservations', 
                 {
                     date,
@@ -129,6 +132,10 @@ export default new Vuex.Store({
                     partySize
                 }
             )
+            
+            commit('SUCCESS');
+
+            success();
         }
     }
 });
