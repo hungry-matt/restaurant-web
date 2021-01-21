@@ -58,14 +58,17 @@ export default new VueRouter({
         }
         , {
             path: "/category"
+            , name: "category"
             , component: Category
         }
         , {
             path: "/restaurant"
+            , name: "restaurant"
             , component: Restaurant
         }
         , {
             path: "/restaurants"
+            , name: "restaurants"
             , component: Restaurants
         }
     ]

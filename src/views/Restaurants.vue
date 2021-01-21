@@ -9,8 +9,8 @@
             <td>
                 <router-link
                     :to="{
-                        path: '/restaurant'
-                        , query: {
+                        name: 'restaurant'
+                        , params: {
                             restaurantId: data.id
                         }
                      }"
@@ -36,7 +36,7 @@ export default {
         ...mapActions(['loadRestaurants'])
     }
     , created() {
-        const { region, category } = this.$route.query
+        const { region, category } = this.$route.params
         this.loadRestaurants({region, category})
     }
 }

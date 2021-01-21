@@ -6,8 +6,8 @@
             <li v-for="(data, idx) in regions" :key="idx">
                 <router-link
                     :to="{
-                        path: '/category'
-                        , query: { region: data.name }
+                        name: 'category'
+                        , params: { region: data.name }
                         }"
                 >
                 {{ data.name }}
