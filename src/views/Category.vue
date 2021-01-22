@@ -7,7 +7,7 @@
                 <router-link
                     :to="{ 
                         name: 'restaurants'
-                        , params: { 
+                        , query: { 
                             region: region
                             , category:  data.id
                             }
@@ -38,7 +38,7 @@ export default {
         ...mapActions(['loadCategories'])
     }
     , mounted() {
-        const { region } = this.$route.params;
+        const { region } = this.$route.query;
         this.region = region;
         this.loadCategories();
     }

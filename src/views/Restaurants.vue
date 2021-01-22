@@ -10,7 +10,7 @@
                 <router-link
                     :to="{
                         name: 'restaurant'
-                        , params: {
+                        , query: {
                             restaurantId: data.id
                         }
                      }"
@@ -36,7 +36,7 @@ export default {
         ...mapActions(['loadRestaurants'])
     }
     , created() {
-        const { region, category } = this.$route.params
+        const { region, category } = this.$route.query
         this.loadRestaurants({region, category})
     }
 }
