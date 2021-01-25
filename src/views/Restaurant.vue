@@ -23,6 +23,15 @@
         <b-button variant="primary" @click="submit">submit</b-button>
       </b-card>
     </b-overlay> -->
+    <b-overlay>
+      <b-card>
+        Score:
+        <b-form-rating v-model="review.score"></b-form-rating>
+        Review:
+        <b-input type="text" v-model="review.description"></b-input>
+        <b-button variant="primary" @click="createReview(getRestaurantId)">submit</b-button>
+      </b-card>
+    </b-overlay>
   </div>
 </template>
 
@@ -35,13 +44,19 @@ export default {
         return {
             restaurantId: ''
             , show: false
+            , score: ''
+            , description: ''
         }
     }
     , computed: {
-        ...mapState(['restaurant'])
+        ...mapState(['restaurant', 'review'])
+        , getRestaurantId() {
+          const { restaurantId } = this.$data;
+          return restaurantId;
+        }
     }
     , methods: {
-        ...mapActions(['loadRestaurant'])
+        ...mapActions(['loadRestaurant', 'createReview'])
         , reservations() {
             this.$router.push({name:"reservations", query:{restaurantId:this.restaurantId}})
         }
