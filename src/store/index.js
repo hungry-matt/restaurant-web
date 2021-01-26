@@ -14,6 +14,7 @@ const state = {
     , regions: []
     , userName: ''
     , review: {}
+    , reviews: []
 }
 
 export default new Vuex.Store({
@@ -58,6 +59,9 @@ export default new Vuex.Store({
         }
         , setReview(state, payload) {
             state.review = payload
+        }
+        , setReviews(state, payload) {
+            state.reviews = payload
         }
         , SUCCESS() {
             
@@ -148,10 +152,13 @@ export default new Vuex.Store({
             })
         }
         , async createReview({state, dispatch}, restaurantId) {
-            const { description, score } = state;
-            console.log(description, score);
-            await post(`/restaurants/${restaurantId}/reviews`, { description, score});
+            const {review} = state;
+            await post(`/restaurants/${restaurantId}/reviews`, review);
             dispatch('resetReview');
+        }
+        , async loadReviews({commit}, restaurantId) {
+            const {reviews} = await get(`/restaurants/${restaurantId}/reviews`);
+            commit('setReviews', reviews);
         }
     }
 });
