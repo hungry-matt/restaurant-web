@@ -37,7 +37,7 @@
         <br>
         
         <div>
-          <b-link href="/join">Create an account</b-link>
+          <b-link @click="join">Create an account</b-link>
         </div>
         
       </b-form>
