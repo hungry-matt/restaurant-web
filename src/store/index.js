@@ -155,10 +155,18 @@ export default new Vuex.Store({
             const {review} = state;
             await post(`/restaurants/${restaurantId}/reviews`, review);
             dispatch('resetReview');
+            dispatch('loadReviews', restaurantId);
         }
         , async loadReviews({commit}, restaurantId) {
-            const {reviews} = await get(`/restaurants/${restaurantId}/reviews`);
-            commit('setReviews', reviews);
+            const payload = await get(`/restaurants/${restaurantId}/reviews`);
+
+            if (payload.success) {
+                const reviews = payload.response;
+                commit('setReviews', reviews);
+            } else {
+                console.log(payload.error.message);
+            }
+
         }
     }
 });

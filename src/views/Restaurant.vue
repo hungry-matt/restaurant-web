@@ -32,6 +32,34 @@
         <b-button variant="primary" @click="createReview(getRestaurantId)">submit</b-button>
       </b-card>
     </b-overlay>
+
+    <b-card>
+      <h1>Reviews</h1>
+      <table class="table table-bordered">
+        <colgroup>
+          <col width="10%">
+          <col width="10%">
+          <col width="80%">
+        </colgroup>
+        <thead>
+          <th scope="col">평점</th>
+          <th scope="col">작성자</th>
+          <th scope="col">내용</th>
+        </thead>
+        <tbody v-if="reviews.length > 0">
+          <tr v-for="(data, idx) in reviews" :key="idx">
+            <td><b-form-rating v-model="data.score" disabled></b-form-rating></td>
+            <td>{{ data.name }}</td>
+            <td>{{ data.description }}</td>
+          </tr>
+        </tbody>
+        <tbody v-if="reviews.length === 0">
+          <tr>
+            <td colspan="3" style="text-align:center">등록된 평점이 없습니다.</td>
+          </tr>
+        </tbody>
+      </table>
+    </b-card>
   </div>
 </template>
 
@@ -49,14 +77,14 @@ export default {
         }
     }
     , computed: {
-        ...mapState(['restaurant', 'review'])
+        ...mapState(['restaurant', 'review', 'reviews'])
         , getRestaurantId() {
           const { restaurantId } = this.$data;
           return restaurantId;
         }
     }
     , methods: {
-        ...mapActions(['loadRestaurant', 'createReview'])
+        ...mapActions(['loadRestaurant', 'createReview', 'loadReviews'])
         , reservations() {
             this.$router.push({name:"reservations", query:{restaurantId:this.restaurantId}})
         }
@@ -65,6 +93,7 @@ export default {
         const { restaurantId } = this.$route.query
         this.restaurantId = restaurantId;
         this.loadRestaurant({restaurantId});
+        this.loadReviews(restaurantId);
     }
 }
 </script>
