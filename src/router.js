@@ -10,6 +10,7 @@ import List from "./views/List.vue"
 import Category from "./views/Category.vue"
 import Restaurants from "./views/Restaurants.vue"
 import Restaurant from "./views/Restaurant.vue"
+import Reservation from "./views/Reservation.vue"
 import Reservations from "./views/Reservations.vue"
 
 import store from "./store";
@@ -71,6 +72,11 @@ export default new VueRouter({
             path: "/restaurants"
             , name: "restaurants"
             , component: Restaurants
+        }
+        , {
+            path: "/reservation"
+            , name: "reservation"
+            , component: Reservation
         }
         , {
             path: "/reservations"

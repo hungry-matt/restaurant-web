@@ -45,7 +45,8 @@
 
         <b-nav-item-dropdown v-if="accessToken" :text=userName right>
           <b-dropdown-item href="#">Profile</b-dropdown-item>
-          <b-dropdown-item href="#" @click="clearAccessToken">Sign Out</b-dropdown-item>
+          <b-dropdown-item @click="reservations">My Reservations</b-dropdown-item>
+          <b-dropdown-item @click="clearAccessToken">Sign Out</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
@@ -61,6 +62,9 @@ export default {
     }
     , methods: {
       ...mapActions(['clearAccessToken'])
+      , reservations() {
+        this.$router.push('/reservations');
+      }
     }
     , watch: {
       userName() {

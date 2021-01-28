@@ -15,6 +15,8 @@ const state = {
     , userName: ''
     , review: {}
     , reviews: []
+    , menuItems: []
+    , reservations: []
 }
 
 export default new Vuex.Store({
@@ -62,6 +64,12 @@ export default new Vuex.Store({
         }
         , setReviews(state, payload) {
             state.reviews = payload
+        }
+        , setMenuItems(state, payload) {
+            state.menuItems = payload;
+        }
+        , setReservations(state, payload) {
+            state.reservations = payload
         }
         , SUCCESS() {
             
@@ -129,10 +137,12 @@ export default new Vuex.Store({
             commit('setRestaurants', restaurants)
         }
         , async loadRestaurant({commit}, {restaurantId}) {
-            const restaurant = await get('/restaurants/' + restaurantId)
-            commit('setRestaurant', restaurant);
+            const payload = await get('/restaurants/' + restaurantId)
+            commit('setRestaurant', payload);
+            commit('setReviews', payload.reviews);
+            commit('setMenuItems', payload.menuItems);
         }
-        , async reservations({commit}, {restaurantId, date, time, partySize, success}) {
+        , async createReservation({commit}, {restaurantId, date, time, partySize, success}) {
             await post('/restaurants/'+ restaurantId +'/reservations', 
                 {
                     date,
@@ -167,6 +177,11 @@ export default new Vuex.Store({
                 console.log(payload.error.message);
             }
 
+        }
+        , async loadReservations({commit}) {
+            const payload = await get('/restaurants/reservations');
+            
+            commit('setReservations', payload);
         }
     }
 });
